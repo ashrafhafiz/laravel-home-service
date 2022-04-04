@@ -15,4 +15,15 @@ class AdminServiceCategoryComponent extends Component
         return view('livewire.admin.admin-service-category-component', $data)
             ->layout('layouts.base');
     }
+
+    public function deleteCategory($categoryId)
+    {
+        $serviceCategory = ServiceCategory::find($categoryId);
+        if ($serviceCategory->image) {
+            unlink('images/categories/' . $serviceCategory->image);
+        }
+        $serviceCategory->delete();
+
+        session()->flash('message', 'Category has been deleted successfully!');
+    }
 }

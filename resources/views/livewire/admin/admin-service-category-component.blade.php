@@ -29,28 +29,51 @@
                 <div class="container">
                     <div class="row portfolioContainer">
                         <div class="col-md-12 profile1">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Slug</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($serviceCategories as $serviceCategory)
-                                    <tr>
-                                        <th>{{ $serviceCategory->id }}</th>
-                                        <th><img src="{{ asset('images/categories/' . $serviceCategory->image ) }}"
-                                                alt="{{ $serviceCategory->name }}"></th>
-                                        <th>{{ $serviceCategory->name }}</th>
-                                        <th>{{ $serviceCategory->slug }}</th>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            {!! $serviceCategories->links() !!}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h3>All Service Categories</h3>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a href="{{ route('admin.servicecategory.add') }}" class="btn btn-info pull-right">Add New</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    @if (Session::has('message'))
+                                    <div class="alert alert-success" role="alert">{{ Session::get('message') }}</div>
+                                    @endif
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Image</th>
+                                                <th>Name</th>
+                                                <th>Slug</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($serviceCategories as $key => $serviceCategory)
+                                            <tr>
+                                                <th>{{ $serviceCategory->id }}</th>
+                                                <th><img src="{{ asset('images/categories/' . $serviceCategory->image ) }}"
+                                                        alt="{{ $serviceCategory->name }}"></th>
+                                                <th>{{ $serviceCategory->name }}</th>
+                                                <th>{{ $serviceCategory->slug }}</th>
+                                                <th>
+                                                    <a href="{{ route('admin.servicecategory.edit', ['categoryId' => $serviceCategory->id]) }}" style="margin-right: 10px;"><i class="fa fa-edit fa-2x text-info"></i></a>
+                                                    <a href="#" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click.prevent="deleteCategory({{ $serviceCategory->id }})"><i class="fa fa-trash fa-2x text-danger"></i></a>
+                                                </th>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    {!! $serviceCategories->links() !!}
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
