@@ -9,6 +9,7 @@ use App\Http\Livewire\Admin\AdminServiceCategoryComponent;
 use App\Http\Livewire\Customer\CustomerDashboardComponent;
 use App\Http\Livewire\ServiceCategoriesComponent;
 use App\Http\Livewire\ServiceProvider\ServiceProviderDashboardComponent;
+use App\Http\Livewire\ServicesByCategoryComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ use App\Http\Livewire\ServiceProvider\ServiceProviderDashboardComponent;
 
 Route::get('/', HomeComponent::class)->name('home');
 Route::get('/service-categories', ServiceCategoriesComponent::class)->name('servicecategories');
+Route::get('/{category_slug}/services', ServicesByCategoryComponent::class)->name('home.servicesByCategory');
 
 // Route::middleware([
 //     'auth:sanctum',

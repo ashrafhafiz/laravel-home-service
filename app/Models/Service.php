@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-// use Spatie\Translatable\HasTranslations;
 
-class ServiceCategory extends Model
+class Service extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -19,16 +18,11 @@ class ServiceCategory extends Model
     // public $translatable = ['name'];
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
-     * @var string[]
+     * @var array
      */
-    // protected $fillable = array('name', 'slug', 'image');
-    protected $fillable = [
-        'name',
-        'slug',
-        'image',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -51,13 +45,8 @@ class ServiceCategory extends Model
      */
     protected $appends = [];
 
-    public function services()
+    public function serviceCategory()
     {
-        return $this->hasMany(Service::class);
-    }
-
-    public static function getBySlug($category_slug)
-    {
-        return ServiceCategory::where('slug', $category_slug)->first();
+        return $this->belongsTo(ServiceCategory::class);
     }
 }
